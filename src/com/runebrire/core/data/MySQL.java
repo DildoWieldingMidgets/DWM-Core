@@ -9,6 +9,13 @@ import java.util.logging.Level;
 
 import org.bukkit.plugin.Plugin;
 
+/**
+ * this class is curteosy of Husky from bukkit forums, i did not make it
+ * 
+ * @author Desty
+ * 
+ */
+
 public class MySQL extends Database {
 	private final String user;
 	private final String database;
@@ -45,10 +52,8 @@ public class MySQL extends Database {
 			connection = DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database, this.user, this.password);
 		} catch (SQLException e) {
 			plugin.getLogger().log(Level.SEVERE, "Could not connect to MySQL server! because: " + e.getMessage());
-			plugin.getServer().getPluginManager().disablePlugin(plugin);
 		} catch (ClassNotFoundException e) {
 			plugin.getLogger().log(Level.SEVERE, "JDBC Driver not found!");
-			plugin.getServer().getPluginManager().disablePlugin(plugin);
 		}
 		return connection;
 	}

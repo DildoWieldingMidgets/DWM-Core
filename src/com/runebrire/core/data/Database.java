@@ -4,6 +4,13 @@ import java.sql.Connection;
 
 import org.bukkit.plugin.Plugin;
 
+/**
+ * this class is curteosy of Husky from bukkit forums, i did not make it
+ * 
+ * @author Desty
+ * 
+ */
+
 public abstract class Database {
 
 	/**

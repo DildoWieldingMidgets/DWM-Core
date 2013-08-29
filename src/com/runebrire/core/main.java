@@ -10,12 +10,12 @@ public class main extends JavaPlugin {
 	/*
 	 * @author Desty
 	 */
-	MySQL MySQL = new MySQL(this, "host.name", "Ttor_database", "3119", "user", "pass");
+	MySQL mysql = new MySQL(this, "198.27.82.9", "3306", "mc_20", "mc_20", "3a2eb541ff");
 	Connection c = null;
 
 	@Override
 	public void onEnable() {
-		c = MySQL.openConnection();
+		c = mysql.openConnection();
 	}
 
 	@Override
