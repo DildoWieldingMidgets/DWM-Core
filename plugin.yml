@@ -1,5 +1,5 @@
 name: DWM-Core
-main: com.runebrire.core.main
+main: com.runebrire.core.Core
 version: 1.0
 author: DuelWieldMidgets
 description: Core plugin to hook all others together
