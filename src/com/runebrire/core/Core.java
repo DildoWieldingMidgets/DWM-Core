@@ -10,8 +10,10 @@ import java.util.logging.Level;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.runebrire.core.data.DataHandler;
 import com.runebrire.core.data.MySQL;
+import com.runebrire.core.instance.InstanceHandler;
 
 public class Core extends JavaPlugin {
 	// registered subPlugins are stored here
@@ -20,20 +22,48 @@ public class Core extends JavaPlugin {
 	private MySQL _mysql = new MySQL(this, "198.27.82.9", "3306", "mc_20", "mc_20", "3a2eb541ff");
 	private static Connection _c = null;
 	// DataHandler is for sending/retrieving data from database
-	static DataHandler datahandler = new DataHandler(_c);
+	static DataHandler _datahandler = new DataHandler(_c);
+	// instance of multiverse Core & instancing technologies
+	private static MultiverseCore _mvCore = null;
+	// instance of Instancing technologies
+	private static InstanceHandler _iHandler = new InstanceHandler(_mvCore);
 
 	@Override
 	public void onEnable() {
 		_c = _mysql.openConnection();
+		_mvCore = (MultiverseCore) getServer().getPluginManager().getPlugin("Multiverse-Core");
+	}
+
+	@Override
+	public void onDisable() {
+		deleteInstances();
+	}
+
+	/**
+	 * deletes all instances onDisable
+	 */
+	public void deleteInstances() {
+		for (Integer i : _iHandler.getInstances().keySet()) {
+			_iHandler.deleteInstance(i);
+		}
 	}
 
 	/**
 	 * Grab the dataHandler instance for query and updating SQL
 	 * 
-	 * @return
+	 * @return - the handler
 	 */
 	public static DataHandler getDataHandler() {
-		return datahandler;
+		return _datahandler;
+	}
+
+	/**
+	 * Grab the InstanceHandler to create / delete instances and such
+	 * 
+	 * @return - the handler
+	 */
+	public static InstanceHandler getInstanceHandler() {
+		return _iHandler;
 	}
 
 	/**
@@ -75,4 +105,5 @@ public class Core extends JavaPlugin {
 		}
 		return null;
 	}
+
 }
